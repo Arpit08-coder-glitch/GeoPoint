@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "605856600202",
+    "project_id": "geoplots-88eeb",
+    "storage_bucket": "geoplots-88eeb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605856600202:android:c74698b09b1f63d6f11d73",
+        "android_client_info": {
+          "package_name": "com.quantasip.plotpoint"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9wr7SnBQvllsLyoBPwy32ech-XjQuOQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

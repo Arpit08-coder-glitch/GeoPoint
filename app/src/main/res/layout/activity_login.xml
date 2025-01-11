@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".LoginActivity">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center"
+        android:background="@color/white">
+
+        <!-- App Logo -->
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_launcher"
+            android:layout_gravity="center"
+            android:contentDescription="App Logo"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Username Input -->
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:inputType="text"
+            android:padding="12dp"
+            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Password Input -->
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:background="@drawable/rounded_button2"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Sign Up Button -->
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:background="@drawable/rounded_button"
+            android:textColor="@android:color/white"
+            android:padding="12dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
