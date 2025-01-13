@@ -1,5 +1,5 @@
 [versions]
-agp = "8.9.0-alpha06"
+agp = "8.9.0-alpha09"
 androidSdk = "9.6.2"
 junit = "4.13.2"
 junitVersion = "1.1.5"

@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.WindowManager;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.Objects;
 
 @SuppressLint("CustomSplashScreen")

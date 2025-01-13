@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GeoPlots</string>
     <string name="back" >Data</string>
+    <string name="default_web_client_id"><![CDATA[<string name=\"default_web_client_id\">605856600202-ebt5dthqj8s4d2jbh78tqia0k8sioi0l.apps.googleusercontent.com</string>\n]]></string>
 </resources>

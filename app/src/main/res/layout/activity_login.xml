@@ -4,14 +4,15 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".LoginActivity">
+
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
         android:gravity="center"
-        android:background="@color/white">
+        android:background="@color/white"
+        tools:ignore="RedundantNamespace">
 
         <!-- App Logo -->
         <ImageView
@@ -21,7 +22,8 @@
             android:src="@drawable/ic_launcher"
             android:layout_gravity="center"
             android:contentDescription="App Logo"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="24dp"
+            tools:ignore="HardcodedText" />
 
         <!-- Username Input -->
         <EditText
@@ -32,7 +34,8 @@
             android:inputType="text"
             android:padding="12dp"
             android:background="@drawable/edit_text_background"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            tools:ignore="Autofill,HardcodedText" />
 
         <!-- Password Input -->
         <EditText
@@ -43,7 +46,8 @@
             android:inputType="textPassword"
             android:padding="12dp"
             android:background="@drawable/edit_text_background"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="24dp"
+            tools:ignore="Autofill,HardcodedText" />
 
         <!-- Login Button -->
         <Button
@@ -54,7 +58,8 @@
             android:background="@drawable/rounded_button2"
             android:textColor="@android:color/white"
             android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            tools:ignore="HardcodedText" />
 
         <!-- Sign Up Button -->
         <Button
@@ -64,7 +69,23 @@
             android:text="Sign Up"
             android:background="@drawable/rounded_button"
             android:textColor="@android:color/white"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            tools:ignore="HardcodedText" />
+
+        <!-- Google Sign-In Button -->
+        <Button
+            android:id="@+id/btnGoogleSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign in with Google"
+            android:background="@drawable/rounded_button2"
+            android:drawableStart="@drawable/googleg_standard_color_18"
+            android:drawablePadding="8dp"
+            android:textColor="@android:color/black"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
