@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -149,7 +150,7 @@ public class SignUpActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(Exception.class);
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (Exception e) {
-                Log.e("SignUpActivity", "Google Sign-In failed", e);
+                Log.e("LoginActivity", "Google Sign-In failed", e);
                 Toast.makeText(this, "Google Sign-In failed", Toast.LENGTH_SHORT).show();
             }
         }
@@ -161,12 +162,74 @@ public class SignUpActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(this, "Sign-In successful: " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                        // Navigate to the next activity
+                        if (user != null) {
+                            showRoleSelectionDialog(user);
+                        }
                     } else {
                         Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    /**
+     * Show a dialog for the user to select their role.
+     */
+    private void showRoleSelectionDialog(FirebaseUser user) {
+        String[] roles = {"USER", "ADMIN"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select Your Role")
+                .setItems(roles, (dialog, which) -> {
+                    String selectedRole = roles[which];
+                    storeUserCredentials(user, selectedRole);
+                })
+                .setCancelable(false)
+                .show();
+    }
+
+    /**
+     * Store the user's credentials in the Firestore database.
+     *
+     * @param user         The signed-in FirebaseUser
+     * @param selectedRole The role selected by the user
+     */
+    private void storeUserCredentials(FirebaseUser user, String selectedRole) {
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("email", user.getEmail());
+        userData.put("username", user.getDisplayName());
+        userData.put("role", selectedRole);
+
+        // Use email as the document ID
+        String documentId = user.getEmail();
+
+        // Determine the collection based on the role
+        String collection = selectedRole.equals("ADMIN") ? "Admins" : "Users";
+
+        db.collection(collection).document(documentId)
+                .set(userData)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(SignUpActivity.this, "Welcome, " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                    navigateToNextActivity(selectedRole);
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(SignUpActivity.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
+                    Log.e("LoginActivity", "Error saving user data", e);
+                });
+    }
+
+    /**
+     * Navigate to the next activity based on the user's role.
+     *
+     * @param role The role selected by the user
+     */
+    private void navigateToNextActivity(String role) {
+        Intent intent;
+        if ("ADMIN".equals(role)) {
+            intent = new Intent(SignUpActivity.this, DataActivity.class);
+        } else {
+            intent = new Intent(SignUpActivity.this, MainActivity.class);
+        }
+        startActivity(intent);
+        finish();
     }
 
     private void checkEmailVerification(FirebaseUser user, String username, String email, UserRole role, String password) {

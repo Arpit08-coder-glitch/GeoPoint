@@ -73,19 +73,6 @@
             android:layout_marginBottom="16dp"
             tools:ignore="HardcodedText" />
 
-        <!-- Google Sign-In Button -->
-        <Button
-            android:id="@+id/btnGoogleSignIn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sign in with Google"
-            android:background="@drawable/rounded_button2"
-            android:drawableStart="@drawable/googleg_standard_color_18"
-            android:drawablePadding="8dp"
-            android:textColor="@android:color/black"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp"
-            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 

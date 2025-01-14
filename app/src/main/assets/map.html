@@ -1070,6 +1070,8 @@ document.getElementById('toggleGeoJSONBtn').addEventListener('click', function()
     // Toggle the visibility state
     isLayerVisible = !isLayerVisible;
 });
+// Initialize a map (assuming Leaflet)
+var plotClicks = {}; // To store the click count for each plot
 function adjustLegendPosition() {
     var tableContainer = document.getElementById('feature-properties');
     var legend = document.querySelector('.info.legend');
@@ -1120,6 +1122,15 @@ function adjustLegendPosition() {
                 var properties = feature.properties;
                 var container = document.getElementById('feature-properties');
                 var panel = document.getElementById('side-panel');
+                 var plotNo = properties.Plot_No; // assuming each feature has a plot_no
+    // Increment the click count for the clicked plot number
+    if (!plotClicks[plotNo]) {
+        plotClicks[plotNo] = 0;
+    }
+    plotClicks[plotNo]++;
+
+    // Send data back to Android
+    Android.onPlotClick(plotNo, plotClicks[plotNo]);
 
                 var html = '<table>';
                 for (var key in properties) {
