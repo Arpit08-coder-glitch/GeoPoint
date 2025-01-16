@@ -36,7 +36,6 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference realtimeDb;
     private static final int RC_SIGN_IN = 1001;
-    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +46,6 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         realtimeDb = FirebaseDatabase.getInstance().getReference("");
-        // Configure Google Sign-In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        findViewById(R.id.btnGoogleSignIn).setOnClickListener(v -> signInWithGoogle());
 
         // Initialize views
         etUsername = findViewById(R.id.etUsername);
@@ -134,102 +124,6 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     });
         });
-    }
-    private void signInWithGoogle() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(Exception.class);
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (Exception e) {
-                Log.e("LoginActivity", "Google Sign-In failed", e);
-                Toast.makeText(this, "Google Sign-In failed", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        if (user != null) {
-                            showRoleSelectionDialog(user);
-                        }
-                    } else {
-                        Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    /**
-     * Show a dialog for the user to select their role.
-     */
-    private void showRoleSelectionDialog(FirebaseUser user) {
-        String[] roles = {"USER", "ADMIN"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Your Role")
-                .setItems(roles, (dialog, which) -> {
-                    String selectedRole = roles[which];
-                    storeUserCredentials(user, selectedRole);
-                })
-                .setCancelable(false)
-                .show();
-    }
-
-    /**
-     * Store the user's credentials in the Firestore database.
-     *
-     * @param user         The signed-in FirebaseUser
-     * @param selectedRole The role selected by the user
-     */
-    private void storeUserCredentials(FirebaseUser user, String selectedRole) {
-        Map<String, Object> userData = new HashMap<>();
-        userData.put("email", user.getEmail());
-        userData.put("username", user.getDisplayName());
-        userData.put("role", selectedRole);
-
-        // Use email as the document ID
-        String documentId = user.getEmail();
-
-        // Determine the collection based on the role
-        String collection = selectedRole.equals("ADMIN") ? "Admins" : "Users";
-
-        db.collection(collection).document(documentId)
-                .set(userData)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(SignUpActivity.this, "Welcome, " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                    navigateToNextActivity(selectedRole);
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(SignUpActivity.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
-                    Log.e("LoginActivity", "Error saving user data", e);
-                });
-    }
-
-    /**
-     * Navigate to the next activity based on the user's role.
-     *
-     * @param role The role selected by the user
-     */
-    private void navigateToNextActivity(String role) {
-        Intent intent;
-        if ("ADMIN".equals(role)) {
-            intent = new Intent(SignUpActivity.this, DataActivity.class);
-        } else {
-            intent = new Intent(SignUpActivity.this, MainActivity.class);
-        }
-        startActivity(intent);
-        finish();
     }
 
     private void checkEmailVerification(FirebaseUser user, String username, String email, UserRole role, String password) {
