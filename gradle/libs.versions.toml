@@ -13,6 +13,7 @@ firebaseDatabase = "21.0.0"
 firebaseAuth = "23.1.0"
 firebaseFirestore = "25.1.1"
 playServicesAuth = "20.7.0"
+materialVersion = "1.12.0"
 
 [libraries]
 firebase-auth-v2211 = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuthVersion" }
@@ -29,6 +30,7 @@ firebase-database = { group = "com.google.firebase", name = "firebase-database",
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

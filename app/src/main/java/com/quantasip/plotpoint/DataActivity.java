@@ -10,6 +10,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.Manifest;
 
@@ -29,12 +30,14 @@ public class DataActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private String username;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
         FirebaseApp.initializeApp(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Button allocateButton = findViewById(R.id.allocateButton);
         // Get the username passed from the login activity
         username = getIntent().getStringExtra("username");
         // Now you can use the username in this activity
@@ -104,6 +107,15 @@ public class DataActivity extends AppCompatActivity {
                 Intent intent = new Intent(DataActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish(); // Optionally finish the current activity
+            }
+        });
+        // Set OnClickListener for the Allocate button
+        allocateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an intent to navigate to FormActivity
+                Intent intent = new Intent(DataActivity.this, FormActivity.class);
+                startActivity(intent);  // Start the new activity
             }
         });
     }
