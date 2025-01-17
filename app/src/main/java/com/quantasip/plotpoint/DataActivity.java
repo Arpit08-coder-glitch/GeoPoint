@@ -1,10 +1,10 @@
 package com.quantasip.plotpoint;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.Manifest;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -25,12 +26,12 @@ import com.google.firebase.auth.FirebaseAuth;
 public class DataActivity extends AppCompatActivity {
 
     private WebView webView;
-    private ImageButton backButton;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private FirebaseAnalytics mFirebaseAnalytics;
     private String username;
 
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,33 +96,27 @@ public class DataActivity extends AppCompatActivity {
 
 
         // Initialize the back button (ImageButton)
-        backButton = findViewById(R.id.backButton);
+        ImageButton backButton = findViewById(R.id.backButton);
 
         // Set an OnClickListener to redirect to LoginActivity
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Log back button click
-                logUserActivity("Back Button Clicked", "User clicked the back button");
-                // Redirect to LoginActivity
-                Intent intent = new Intent(DataActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish(); // Optionally finish the current activity
-            }
+        backButton.setOnClickListener(v -> {
+            // Log back button click
+            logUserActivity("Back Button Clicked", "User clicked the back button");
+            // Redirect to LoginActivity
+            Intent intent = new Intent(DataActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish(); // Optionally finish the current activity
         });
         // Set OnClickListener for the Allocate button
-        allocateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an intent to navigate to FormActivity
-                Intent intent = new Intent(DataActivity.this, FormActivity.class);
-                startActivity(intent);  // Start the new activity
-            }
+        allocateButton.setOnClickListener(v -> {
+            // Create an intent to navigate to FormActivity
+            Intent intent = new Intent(DataActivity.this, FormActivity.class);
+            startActivity(intent);  // Start the new activity
         });
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

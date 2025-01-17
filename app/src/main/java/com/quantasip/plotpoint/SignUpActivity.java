@@ -2,28 +2,17 @@ package com.quantasip.plotpoint;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,11 +20,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     private EditText etUsername, etPassword, etConfirmPassword, etEmail;
     private RadioGroup rgRole;
-    private Button btnSignUp;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private DatabaseReference realtimeDb;
-    private static final int RC_SIGN_IN = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         etEmail = findViewById(R.id.etEmail);
         rgRole = findViewById(R.id.rgRole);
-        btnSignUp = findViewById(R.id.btnSignUp);
+        Button btnSignUp = findViewById(R.id.btnSignUp);
 
         btnSignUp.setOnClickListener(v -> {
             String username = etUsername.getText().toString().trim();
@@ -159,13 +146,9 @@ public class SignUpActivity extends AppCompatActivity {
                                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                 startActivity(intent);
                                 finish();
-                            }).addOnFailureListener(e -> {
-                                Toast.makeText(SignUpActivity.this, "Failed to save data in Realtime Database.", Toast.LENGTH_SHORT).show();
-                            });
+                            }).addOnFailureListener(e -> Toast.makeText(SignUpActivity.this, "Failed to save data in Realtime Database.", Toast.LENGTH_SHORT).show());
                         })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(SignUpActivity.this, "Failed to register. Try again.", Toast.LENGTH_SHORT).show();
-                        });
+                        .addOnFailureListener(e -> Toast.makeText(SignUpActivity.this, "Failed to register. Try again.", Toast.LENGTH_SHORT).show());
             });
         }).start();
     }

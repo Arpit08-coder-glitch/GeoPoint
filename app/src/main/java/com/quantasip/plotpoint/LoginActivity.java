@@ -1,9 +1,13 @@
 package com.quantasip.plotpoint;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -11,21 +15,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etUsername, etPassword;
-    private Button btnLogin, btnSignUp;
     private FirebaseFirestore db;
-    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Initialize Firebase Auth and Firestore
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         // Initialize views
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnSignUp = findViewById(R.id.btnSignUp);
+        Button btnLogin = findViewById(R.id.btnLogin);
+        Button btnSignUp = findViewById(R.id.btnSignUp);
         btnLogin.setOnClickListener(v -> {
             String username = etUsername.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
@@ -49,14 +52,10 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.makeText(LoginActivity.this, "User does not exist", Toast.LENGTH_SHORT).show();
                                         }
                                     })
-                                    .addOnFailureListener(e -> {
-                                        Toast.makeText(LoginActivity.this, "Error checking Users collection", Toast.LENGTH_SHORT).show();
-                                    });
+                                    .addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Error checking Users collection", Toast.LENGTH_SHORT).show());
                         }
                     })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(LoginActivity.this, "Error checking Admins collection", Toast.LENGTH_SHORT).show();
-                    });
+                    .addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Error checking Admins collection", Toast.LENGTH_SHORT).show());
         });
         // Sign-Up button listener
         btnSignUp.setOnClickListener(v -> {
@@ -75,19 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         String storedPassword = snapshot.getString("password");
 
         if (storedPassword != null && storedPassword.equals(password)) {
-            String username = snapshot.getId();  // Get the username (ID of the document)
-
-            Intent intent;
-            if (isAdmin) {
-                // Navigate to Admin activity and pass the username
-                intent = new Intent(LoginActivity.this, DataActivity.class);
-            } else {
-                // Navigate to User activity and pass the username
-                intent = new Intent(LoginActivity.this, MainActivity.class);
-            }
-
-            // Pass the username to the next activity
-            intent.putExtra("username", username);
+            @SuppressLint("UnsafeIntentLaunch") Intent intent = getIntent(snapshot, isAdmin);
 
             // Start the activity and finish the current one
             startActivity(intent);
@@ -95,6 +82,24 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @NonNull
+    private Intent getIntent(DocumentSnapshot snapshot, boolean isAdmin) {
+        String username = snapshot.getId();  // Get the username (ID of the document)
+
+        Intent intent;
+        if (isAdmin) {
+            // Navigate to Admin activity and pass the username
+            intent = new Intent(LoginActivity.this, DataActivity.class);
+        } else {
+            // Navigate to User activity and pass the username
+            intent = new Intent(LoginActivity.this, MainActivity.class);
+        }
+
+        // Pass the username to the next activity
+        intent.putExtra("username", username);
+        return intent;
     }
 
 }

@@ -41,6 +41,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:padding="16dp"
         android:fontFamily="sans-serif"
-        android:background="@drawable/rounded_button" />
+        android:background="@drawable/rounded_button"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
