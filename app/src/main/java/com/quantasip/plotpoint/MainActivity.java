@@ -77,10 +77,16 @@ public class MainActivity extends AppCompatActivity {
         webView.addJavascriptInterface(new Object() {
             @JavascriptInterface
             public void onPlotClick(String plotNo, int clickCount) {
-                // Log the click data
-                Log.d("MapClick", username+" clicked " + clickCount + " times on plot no. " + plotNo);
+                // Log the click data to Firebase Analytics
+                Bundle bundle = new Bundle();
+                bundle.putString("username", username);  // Username who clicked
+                bundle.putString("plot_no", plotNo);     // Plot number clicked
+                bundle.putInt("click_count", clickCount); // Number of clicks on this plot
 
-                // Save or handle the data as needed, e.g., update a UI element or store in a database
+                // Log custom event to Firebase Analytics
+                mFirebaseAnalytics.logEvent("plot_click_event", bundle);
+
+                // Optionally, display a message or store data as needed
             }
         }, "Android");
 
