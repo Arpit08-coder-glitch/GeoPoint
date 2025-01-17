@@ -39,11 +39,11 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
     // Add Firebase dependencies
-    implementation platform('com.google.firebase:firebase-bom:32.1.1') // Latest version
-    implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-database'
-    implementation 'com.google.firebase:firebase-auth:22.1.1'
-    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+    implementation platform(libs.firebase.bom) // Latest version
+    implementation libs.google.firebase.analytics
+    implementation libs.google.firebase.database
+    implementation libs.firebase.auth.v2211
+    implementation libs.play.services.auth
 }
 
 // Apply the Google Services plugin
