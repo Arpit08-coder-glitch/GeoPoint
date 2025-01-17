@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@android:color/black"
+    android:background="@android:color/white"
     tools:context=".FormActivity">
 
     <!-- Full Name -->
@@ -18,8 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="32dp"
-        app:boxBackgroundColor="@android:color/white"
-        app:hintTextColor="@android:color/white"
+        app:boxBackgroundColor="@android:color/black"
+        app:hintTextColor="@android:color/black"
         tools:ignore="HardcodedText">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -42,8 +42,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fullNameInputLayout"
         android:layout_marginTop="16dp"
-        app:boxBackgroundColor="@android:color/white"
-        app:hintTextColor="@android:color/white"
+        app:boxBackgroundColor="@android:color/black"
+        app:hintTextColor="@android:color/black"
         tools:ignore="HardcodedText">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             android:inputType="date"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,8 +66,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dobInputLayout"
         android:layout_marginTop="16dp"
-        app:boxBackgroundColor="@android:color/white"
-        app:hintTextColor="@android:color/white"
+        app:boxBackgroundColor="@android:color/black"
+        app:hintTextColor="@android:color/black"
         tools:ignore="HardcodedText">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             android:inputType="number"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 

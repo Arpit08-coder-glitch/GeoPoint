@@ -89,7 +89,6 @@ public class DataActivity extends AppCompatActivity {
 
                 // Log custom event to Firebase Analytics
                 mFirebaseAnalytics.logEvent("plot_click_event", bundle);
-
                 // Optionally, display a message or store data as needed
             }
         }, "Android");
