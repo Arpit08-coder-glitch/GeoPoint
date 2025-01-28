@@ -1,5 +1,6 @@
 package com.quantasip.plotpoint;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -103,7 +104,7 @@ public class FormActivity extends AppCompatActivity {
             stmt.setString(1, fullName);
 
             // Parse and set the date
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date parsedDate = dateFormat.parse(dob);
             stmt.setDate(2, new java.sql.Date(parsedDate.getTime()));
 
