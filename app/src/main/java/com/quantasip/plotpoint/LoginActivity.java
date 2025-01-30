@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                                         if (userSnapshot.exists()) {
                                             handleLogin(userSnapshot, password, false);
                                         } else {
-                                            Toast.makeText(LoginActivity.this, "User does not exist", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this, "FormData does not exist", Toast.LENGTH_SHORT).show();
                                         }
                                     })
                                     .addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Error checking Users collection", Toast.LENGTH_SHORT).show());
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             // Navigate to Admin activity and pass the username
             intent = new Intent(LoginActivity.this, DataActivity.class);
         } else {
-            // Navigate to User activity and pass the username
+            // Navigate to FormData activity and pass the username
             intent = new Intent(LoginActivity.this, MainActivity.class);
         }
 

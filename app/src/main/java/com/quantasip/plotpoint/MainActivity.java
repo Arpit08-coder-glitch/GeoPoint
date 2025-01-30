@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Log an event when the user opens the MainActivity
-        logUserActivity("MainActivity Opened", "User opened MainActivity");
+        logUserActivity("MainActivity Opened", "FormData opened MainActivity");
 
         // Check if location permissions are granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         // Set an OnClickListener to redirect to LoginActivity
         backButton.setOnClickListener(v -> {
             // Log back button click
-            logUserActivity("Back Button Clicked", "User clicked the back button");
+            logUserActivity("Back Button Clicked", "FormData clicked the back button");
             // Redirect to LoginActivity
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -112,10 +112,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted, proceed with location access
-                logUserActivity("Location Permission Granted", "User granted location permission");
+                logUserActivity("Location Permission Granted", "FormData granted location permission");
             } else {
                 // Permission denied, handle the case where location access is needed
-                logUserActivity("Location Permission Denied", "User denied location permission");
+                logUserActivity("Location Permission Denied", "FormData denied location permission");
             }
         }
     }
