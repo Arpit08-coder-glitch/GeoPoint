@@ -60,11 +60,10 @@ public class FormActivity extends Activity {
             String fullName = fullNameEditText.getText().toString();
             String dob = dobEditText.getText().toString();
             String aadharNumber = aadharNumberEditText.getText().toString();
+            String documentImageBase64 = (documentBitmap != null) ? convertBitmapToBase64(documentBitmap) : null;
+            String plotImageBase64 = (plotBitmap != null) ? convertBitmapToBase64(plotBitmap) : null;
 
-            if (validateInput(fullName, dob, aadharNumber)) {
-                // Convert bitmaps to Base64
-                String documentImageBase64 = (documentBitmap != null) ? convertBitmapToBase64(documentBitmap) : null;
-                String plotImageBase64 = (plotBitmap != null) ? convertBitmapToBase64(plotBitmap) : null;
+            if (validateInput(fullName, dob, aadharNumber, documentImageBase64, plotImageBase64)) {
 
                 // Prepare the data to be uploaded to Firestore
                 Map<String, Object> formData = new HashMap<>();
@@ -76,7 +75,6 @@ public class FormActivity extends Activity {
 
                 // Firestore collection name
                 String collectionName = "user_forms";
-
                 // Save data directly to Firestore
                 db.collection(collectionName)
                         .document(aadharNumber)  // Use Aadhar number as the document ID
@@ -146,8 +144,8 @@ public class FormActivity extends Activity {
     }
 
     // Validate form inputs
-    private boolean validateInput(String fullName, String dob, String aadharNumber) {
-        if (fullName.isEmpty() || dob.isEmpty() || aadharNumber.isEmpty()) {
+    private boolean validateInput(String fullName, String dob, String aadharNumber, String documentImageBase64, String plotImageBase64) {
+        if (fullName.isEmpty() || dob.isEmpty() || aadharNumber.isEmpty() || plotImageBase64==null || documentImageBase64==null) {
             Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
             return false;
         }

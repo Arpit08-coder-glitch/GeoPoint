@@ -216,6 +216,11 @@
             z-index: 1001;
             text-align: center;  /* Center the button and text */
         }
+                .custom-fa-icon {
+    font-size: 24px;
+    color: red;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+}
 
 
     </style>
@@ -269,7 +274,13 @@ var currentLocationMarker;
                     if (currentLocationMarker) {
                         currentLocationMarker.setLatLng([lat, lon]);
                     } else {
-                        currentLocationMarker = L.marker([lat, lon], { title: "Your Location" }).addTo(map);
+                    const locationIcon = L.divIcon({
+                className: 'custom-fa-icon',
+                html: '<i class="fas fa-map-marker-alt"></i>',
+                iconSize: [30, 30],  // Size of the icon
+                iconAnchor: [15, 30] // Anchor to the bottom center
+            });
+                        currentLocationMarker = L.marker([lat, lon], { icon: locationIcon }).addTo(map);
                     }
 
                 }, function() {
