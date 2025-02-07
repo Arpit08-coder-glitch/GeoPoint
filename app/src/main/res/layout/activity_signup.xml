@@ -44,11 +44,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_background"
-        android:hint="Email"
+        android:hint="  Email"
         android:inputType="textEmailAddress"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:drawableStart="@drawable/ic_email"
         app:layout_constraintTop_toBottomOf="@id/tvSignUpTitle"
         tools:ignore="Autofill,HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
 
@@ -57,7 +58,7 @@
         android:id="@+id/etUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Username"
+        android:hint="  Username"
         android:inputType="text"
         android:padding="12dp"
         android:background="@drawable/edit_text_background"
@@ -65,6 +66,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
+        android:drawableStart="@drawable/ic_person"
         tools:ignore="Autofill,HardcodedText,VisualLintTextFieldSize" />
 
     <!-- Password Field -->
@@ -74,10 +76,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_background"
-        android:hint="Password"
+        android:hint="  Password"
         android:inputType="textPassword"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:drawableStart="@drawable/ic_lock"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etUsername"
         tools:ignore="Autofill,HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
@@ -87,12 +90,13 @@
         android:id="@+id/etConfirmPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Confirm Password"
+        android:hint=" Confirm Password"
         android:inputType="textPassword"
         android:padding="12dp"
         android:background="@drawable/edit_text_background"
         app:layout_constraintTop_toBottomOf="@id/etPassword"
         app:layout_constraintStart_toStartOf="parent"
+        android:drawableStart="@drawable/ic_lock"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
         tools:ignore="Autofill,HardcodedText,VisualLintTextFieldSize" />
