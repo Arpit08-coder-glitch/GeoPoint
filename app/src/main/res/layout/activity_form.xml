@@ -17,7 +17,10 @@
             android:layout_marginBottom="16dp"
             android:hint="Full Name"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:drawableStart="@drawable/ic_user"
+            android:paddingStart="12dp"
+            android:drawablePadding="12dp" />
 
         <!-- Date of Birth Input -->
         <EditText
@@ -27,7 +30,10 @@
             android:layout_marginBottom="16dp"
             android:hint="Date of Birth (YYYY-MM-DD)"
             android:inputType="date"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:drawableStart="@drawable/ic_calendar"
+            android:paddingStart="12dp"
+            android:drawablePadding="12dp" />
 
         <!-- Aadhar Number Input -->
         <EditText
@@ -38,7 +44,10 @@
             android:hint="Aadhar Number"
             android:inputType="number"
             android:maxLength="12"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:drawableStart="@drawable/ic_adhaar"
+            android:paddingStart="12dp"
+            android:drawablePadding="12dp" />
 
         <!-- Upload Document Image -->
         <Button
@@ -46,7 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Upload Document Image"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:drawableStart="@drawable/ic_upload"
+            android:drawablePadding="12dp" />
 
         <ImageView
             android:id="@+id/documentImageView"
@@ -62,7 +73,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Upload Plot Image"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:drawableStart="@drawable/ic_upload"
+            android:drawablePadding="12dp" />
 
         <ImageView
             android:id="@+id/plotImageView"
@@ -79,6 +92,8 @@
             android:layout_height="wrap_content"
             android:text="Submit"
             android:backgroundTint="@color/purple_500"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:drawableStart="@drawable/ic_submit"
+            android:drawablePadding="12dp" />
     </LinearLayout>
 </ScrollView>
