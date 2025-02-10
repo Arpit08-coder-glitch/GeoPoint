@@ -1,6 +1,8 @@
 package com.quantasip.plotpoint;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,20 +16,23 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class FormActivity extends Activity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
-    private static final int CAMERA_REQUEST = 2;
 
     private EditText fullNameEditText, dobEditText, aadharNumberEditText;
     private ImageView documentImageView, plotImageView;
-    private Button submitButton, uploadDocumentButton, uploadPlotButton;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance(); // Firestore instance
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance(); // Firestore instance
     private Bitmap documentBitmap, plotBitmap;
     private boolean isDocumentImage = false; // Flag to check which image is being uploaded
+    private Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +42,15 @@ public class FormActivity extends Activity {
         // Initialize views
         fullNameEditText = findViewById(R.id.fullNameEditText);
         dobEditText = findViewById(R.id.dobEditText);
+        calendar = Calendar.getInstance();
+        dobEditText.setOnClickListener(v -> showDatePicker());
         aadharNumberEditText = findViewById(R.id.aadharNumberEditText);
         documentImageView = findViewById(R.id.documentImageView);
         plotImageView = findViewById(R.id.plotImageView);
-        submitButton = findViewById(R.id.submitButton);
-        uploadDocumentButton = findViewById(R.id.uploadDocumentButton);
-        uploadPlotButton = findViewById(R.id.uploadPlotButton);
+        Button submitButton = findViewById(R.id.submitButton);
+        Button uploadDocumentButton = findViewById(R.id.uploadDocumentButton);
+        Button uploadPlotButton = findViewById(R.id.uploadPlotButton);
+
 
         // Handle document image upload
         uploadDocumentButton.setOnClickListener(v -> {
@@ -91,9 +99,24 @@ public class FormActivity extends Activity {
         });
     }
 
+    private void showDatePicker() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    calendar.set(selectedYear, selectedMonth, selectedDay);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                    dobEditText.setText(dateFormat.format(calendar.getTime()));
+                }, year, month, day);
+        datePickerDialog.show();
+    }
+
     // Show image picker dialog (Camera or Gallery)
+    @SuppressLint("IntentReset")
     private void showImagePickerDialog() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        @SuppressLint("IntentReset") Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         galleryIntent.setType("image/*");
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -116,7 +139,8 @@ public class FormActivity extends Activity {
                     bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data.getData()));
                 } else {
                     // Image captured from camera
-                    bitmap = (Bitmap) data.getExtras().get("data");
+                    assert data != null;
+                    bitmap = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
                 }
 
                 if (bitmap != null) {
