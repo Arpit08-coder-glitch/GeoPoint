@@ -44,7 +44,6 @@ dependencies {
     implementation libs.google.firebase.database
     implementation libs.firebase.auth.v2211
     implementation libs.play.services.auth
-    implementation libs.postgresql
 }
 
 // Apply the Google Services plugin
