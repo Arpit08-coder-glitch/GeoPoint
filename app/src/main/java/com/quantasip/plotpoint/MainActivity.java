@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
     @Override
     public void onBackPressed() {
         if (webView.canGoBack()) {
@@ -128,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
     // JavaScript Interface class to handle communication from WebView
     public class WebAppInterface {
         @JavascriptInterface

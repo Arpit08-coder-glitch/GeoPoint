@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -90,7 +91,12 @@ public class FormActivity extends Activity {
                         .addOnSuccessListener(aVoid -> {
                             Log.d("Firestore", "Data successfully written to Firestore!");
                             Toast.makeText(FormActivity.this, "Form submitted successfully", Toast.LENGTH_SHORT).show();
-                        })
+                                    Intent intent = new Intent(FormActivity.this, DataActivity.class);
+                                    startActivity(intent);
+                                    finish(); // Optional: Close the current activity
+                        }
+                        )
+
                         .addOnFailureListener(e -> {
                             Log.e("FirestoreError", "Error writing to Firestore: " + e.getMessage());
                             Toast.makeText(FormActivity.this, "Failed to save data in Firestore. Try again.", Toast.LENGTH_SHORT).show();
@@ -147,9 +153,11 @@ public class FormActivity extends Activity {
                     if (isDocumentImage) {
                         documentBitmap = bitmap;
                         documentImageView.setImageBitmap(bitmap);
+                        documentImageView.setVisibility(View.VISIBLE); // Make visible when image is selected
                     } else {
                         plotBitmap = bitmap;
                         plotImageView.setImageBitmap(bitmap);
+                        plotImageView.setVisibility(View.VISIBLE); // Make visible when image is selected
                     }
                 }
             } catch (Exception e) {
