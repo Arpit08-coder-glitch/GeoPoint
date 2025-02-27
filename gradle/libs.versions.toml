@@ -1,5 +1,5 @@
 [versions]
-agp = "8.10.0-alpha05"
+agp = "8.10.0-alpha06"
 androidSdk = "9.6.2"
 firebaseAuthVersion = "23.2.0"
 firebaseBom = "33.9.0"
